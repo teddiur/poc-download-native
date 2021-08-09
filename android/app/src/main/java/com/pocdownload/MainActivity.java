@@ -1,6 +1,7 @@
 package com.pocdownload;
 
 import com.facebook.react.ReactActivity;
+import com.rnfs.RNFSPackage;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +12,13 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "pocDownload";
+  }
+  
+  @Override
+  protected List<ReactPackage> getPackages() {
+    return Arrays.<ReactPackage>asList(
+      new MainReactPackage(),
+      new RNFSPackage() 
+    );
   }
 }
