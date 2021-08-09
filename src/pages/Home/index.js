@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Button,
   SafeAreaView,
@@ -9,6 +9,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {WebView} from 'react-native-webview';
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 
@@ -38,13 +39,15 @@ const Section = ({children, title}) => {
   );
 };
 
-const Home = () => {
+const Home = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [shouldDownload, setShouldDownload] = useState(false);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  console.log(shouldDownload, 'estado');
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -59,18 +62,24 @@ const Home = () => {
           <Section title="Opções download">
             <Button
               onPress={() => {
-                console.log('fs');
+                setShouldDownload(true);
+              }}
+              title="webview"
+              color="#841584"
+            />
+            {shouldDownload && (
+              <WebView
+                source={{
+                  uri: 'https://api.pagar.me/1/boletos/test_ckj9yiyvy1obb0gm5g9yfpgbw?format=pdf',
+                }}
+              />
+            )}
+            <Button
+              onPress={() => {
+                navigation.navigate('FsScreen');
               }}
               title="react-native-fs"
               color="#841584"
-              accessibilityLabel="Learn more about this purple button"
-            />
-            <Button
-              onPress={() => {}}
-              title="rn-fetch-blob"
-              color="#841584"
-              accessibilityLabel="Learn more
-            about this purple button"
             />
           </Section>
         </View>
