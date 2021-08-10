@@ -7,9 +7,9 @@ import RNFS from 'react-native-fs';
 
 function Fs() {
   const onPress = async () => {
-    let path = RNFS.DownloadDirectoryPath;
+    // let path = RNFS.DownloadDirectoryPath;
     // if (Platform.OS === 'ios') {
-    //   path = RNFS.LibraryDirectoryPath;
+    let path = RNFS.LibraryDirectoryPath;
     // }
 
     const filename = `/test.pdf`;
