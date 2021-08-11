@@ -7,10 +7,7 @@ import RNFS from 'react-native-fs';
 
 function Fs() {
   const onPress = async () => {
-    // let path = RNFS.DownloadDirectoryPath;
-    // if (Platform.OS === 'ios') {
-    let path = RNFS.LibraryDirectoryPath;
-    // }
+    let path = RNFS.DownloadDirectoryPath;
 
     const filename = `/test.pdf`;
     const url =
@@ -32,8 +29,15 @@ function Fs() {
 
       console.log(data);
       if (data.statusCode === 200 && data.bytesWritten > 0) {
-        console.log('baixou');
-        await FileViewer.open(pathfile);
+        console.log('salvo em ', pathfile);
+        console.log('aberto');
+        await FileViewer.open(pathfile, {
+          onDismiss: () => {
+            RNFS.unlink(pathfile);
+            console.log(`arquivo em ${pathfile} apagado`);
+          },
+          showOpenWithDialog: true,
+        });
         return;
       }
       console.log('xii, baixou não');

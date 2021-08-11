@@ -8,6 +8,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Linking,
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 
@@ -47,7 +48,15 @@ const Home = ({navigation}) => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  console.log(shouldDownload, 'estado');
+  const url =
+    'https://api.pagar.me/1/boletos/test_ckj9yiyvy1obb0gm5g9yfpgbw?format=pdf';
+
+  const onPressLinking = async () => {
+    // if (await Linking.canOpenURL(url)){
+    await Linking.openURL(url);
+    // }
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -81,6 +90,7 @@ const Home = ({navigation}) => {
               title="react-native-fs"
               color="#841584"
             />
+            <Button onPress={onPressLinking} title="Linking" color="#841584" />
           </Section>
         </View>
       </ScrollView>
